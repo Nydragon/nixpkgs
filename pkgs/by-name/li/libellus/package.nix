@@ -7,13 +7,18 @@
   desktop-file-utils,
   glib,
   gjs,
-  gtk3,
-  wrapGAppsHook
+  wrapGAppsHook4,
+  gobject-introspection,
+  gettext,
+  appstream-glib,
+  pkg-config,
+  cmake,
+  gtk4,
 }:
 
 stdenv.mkDerivation rec {
   pname = "libellus";
-  version = "1.0.3.1";
+  version = "1.0.3";
 
   src = fetchFromGitHub {
     owner = "qwertzuiopy";
@@ -28,22 +33,31 @@ stdenv.mkDerivation rec {
     gjs
     desktop-file-utils
     glib
-    wrapGAppsHook
+    wrapGAppsHook4
+    gobject-introspection
+    gettext
+    appstream-glib
+    pkg-config
+    cmake
+    gtk4
   ];
 
   buildInputs = [
-    gtk3
     glib
-    wrapGAppsHook
+
   ];
+
+  postInstall = ''
+    mv $out/bin/de.hummdudel.Libellus $out/bin/libellus
+  '';
 
   meta = {
     description = "";
     homepage = "";
     license = lib.licenses.gpl3Plus;
     longDescription = '''';
-    maintainers = with lib.maintainers; [ wentasah ];
+    maintainers = with lib.maintainers; [ nydragon ];
     platforms = lib.platforms.linux;
-    mainProgram = "de.hummdudel.Libellus";
+    mainProgram = "libellus";
   };
 }
